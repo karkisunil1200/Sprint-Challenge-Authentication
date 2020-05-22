@@ -1,7 +1,9 @@
 const db = require('../database/dbConfig');
 
 module.exports = {
-  addUsers
+  addUsers,
+  getUsers,
+  findBy
 };
 
 function addUsers(user) {
@@ -9,4 +11,15 @@ function addUsers(user) {
     .select('*')
     .from('users')
     .insert(user);
+}
+
+function getUsers() {
+  return db.select('*').from('users');
+}
+
+function findBy(username) {
+  return db
+    .select('*')
+    .from('users')
+    .where(username);
 }
