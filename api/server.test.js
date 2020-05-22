@@ -14,3 +14,16 @@ test('POST /api/auth/register', async () => {
   expect(response.status).toBe(200);
   expect(response.body).toMatchObject({message: 'success'});
 });
+
+test('POST /api/auth/login', async () => {
+  const register = await request(server)
+    .post('/api/auth/register')
+    .send({username: 'sunil', password: 'sunil'});
+
+  const response = await request(server)
+    .post('/api/auth/login')
+    .send({username: 'sunil', password: 'sunil'});
+
+  expect(response.status).toBe(200);
+  expect(response.body).toHaveProperty('token');
+});
