@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bcryptjs = require('bcryptjs');
 const Users = require('../users/users-model');
 const jwt = require('jsonwebtoken');
+const secret = require('../config/vars');
 
 router.post('/register', (req, res) => {
   // implement registration
@@ -47,9 +48,7 @@ const generateToken = user => {
     expiresIn: '1d'
   };
 
-  const secret = process.env.JWT_SECRET || 'keepitsecretmostsecuresecret';
-
-  return jwt.sign(payload, secret, options);
+  return jwt.sign(payload, secret.jwtSecret, options);
 };
 
 module.exports = router;
